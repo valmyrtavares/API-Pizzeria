@@ -1,15 +1,22 @@
+import { PrismaClient } from '@prisma/client';
 import prismaClient from '../../prisma';
 
 interface pickOneUserProps {
   id: string;
 }
 
-class OneUserService {
+class OneService {
+  collection: string;
+  constructor(collection: string) {
+    this.collection = collection;
+  }
   async execute({ id }: pickOneUserProps) {
     if (!id) {
       throw new Error('Solicitação inválida');
     }
-    const findOneUser = await prismaClient.user.findFirst({
+    const findOneUser = await (
+      prismaClient as PrismaClient & { [key: string]: any }
+    )[this.collection].findFirst({
       where: {
         id: id,
       },
@@ -21,4 +28,4 @@ class OneUserService {
   }
 }
 
-export { OneUserService };
+export { OneService };

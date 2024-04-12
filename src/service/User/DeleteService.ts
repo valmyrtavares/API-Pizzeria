@@ -1,23 +1,34 @@
 import prismaClient from '../../prisma';
+import { PrismaClient } from '@prisma/client';
 
 interface DeleteUserProps {
   id: string;
 }
 
-class DeleteUserService {
+class DeleteService {
+  collection: string;
+  constructor(collection: string) {
+    this.collection = collection;
+  }
   async execute({ id }: DeleteUserProps) {
     if (!id) {
       throw new Error('Solicitação inválida');
     }
-    const findUser = await prismaClient.user.findFirst({
+
+    const findUser = await (
+      prismaClient as PrismaClient & { [key: string]: any }
+    )[this.collection].findFirst({
       where: {
         id: id,
       },
     });
+
     if (!findUser) {
       throw new Error('Cliente não existe');
     }
-    await prismaClient.user.delete({
+    await (prismaClient as PrismaClient & { [key: string]: any })[
+      this.collection
+    ].delete({
       where: {
         id: findUser.id,
       },
@@ -25,4 +36,4 @@ class DeleteUserService {
     return { message: 'Deletada com sucesso' };
   }
 }
-export { DeleteUserService };
+export { DeleteService };

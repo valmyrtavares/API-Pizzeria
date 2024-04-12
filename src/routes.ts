@@ -7,8 +7,8 @@ import {
 
 import { CreateController } from './controllers/User/CreateController';
 import { ListController } from './controllers/User/listUserController';
-import { DeleteUserController } from './controllers/User/DeleteUserController';
-import { OneUserController } from './controllers/User/oneUserController';
+import { DeleteController } from './controllers/User/DeleteController';
+import { OneController } from './controllers/User/oneController';
 //import { CreateMainMenuController } from './controllers/btnMainMenu/CreateMainMenuController';
 import { ListBtnMainMenuController } from './controllers/btnMainMenu/listBtnMainMenuController';
 
@@ -38,13 +38,15 @@ export async function routes(
   fastify.delete(
     '/user',
     async (request: FastifyRequest, reply: FastifyReply) => {
-      return new DeleteUserController().handle(request, reply);
+      return new DeleteController('user').handle(request, reply);
     }
   );
 
   fastify.get('/user', async (request: FastifyRequest, reply: FastifyReply) => {
-    return new OneUserController().handle(request, reply);
+    return new OneController('user').handle(request, reply);
   });
+
+  //**********************BtnMainMenu ********************************* */
 
   fastify.post(
     '/btnMainMenu',
@@ -66,7 +68,44 @@ export async function routes(
   fastify.delete(
     '/btnMainMenu',
     async (request: FastifyRequest, reply: FastifyReply) => {
-      return new DeleteUserController().handle(request, reply);
+      return new DeleteController('btnMainMenu').handle(request, reply);
+    }
+  );
+
+  fastify.get(
+    '/btnMainMenu',
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      return new OneController('btnMainMenu').handle(request, reply);
+    }
+  );
+
+  //**********************BtnMenu ********************************* */
+
+  fastify.post(
+    '/btnMenu',
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      return new CreateController('btnMenu').handleBtnMainMenu(request, reply);
+    }
+  );
+
+  fastify.get(
+    '/btnMenus',
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      return new ListController('btnMenu').handle(request, reply);
+    }
+  );
+
+  fastify.delete(
+    '/btnMenu',
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      return new DeleteController('btnMenu').handle(request, reply);
+    }
+  );
+
+  fastify.get(
+    '/btnMenu',
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      return new OneController('btnMenu').handle(request, reply);
     }
   );
 }
