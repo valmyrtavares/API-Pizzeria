@@ -38,5 +38,25 @@ class CreateController {
 
     reply.send(btnMainMenu);
   }
+
+  async handleBtnMenu(request: FastifyRequest, reply: FastifyReply) {
+    const { title, category, address, parent } = request.body as {
+      title: string;
+      category: string;
+      address: string;
+      parent: string;
+    };
+
+    const userService = new CreateService(this.collection);
+
+    const btnMainMenu = await userService.executeBtnMenu({
+      title,
+      category,
+      address,
+      parent,
+    });
+
+    reply.send(btnMainMenu);
+  }
 }
 export { CreateController };

@@ -84,7 +84,7 @@ export async function routes(
   fastify.post(
     '/btnMenu',
     async (request: FastifyRequest, reply: FastifyReply) => {
-      return new CreateController('btnMenu').handleBtnMainMenu(request, reply);
+      return new CreateController('btnMenu').handleBtnMenu(request, reply);
     }
   );
 

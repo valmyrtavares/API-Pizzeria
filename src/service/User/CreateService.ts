@@ -13,6 +13,13 @@ interface CreateBtnMainMenuProps {
   address: string;
 }
 
+interface CreateBtnMenuProps {
+  title: string;
+  category: string;
+  address: string;
+  parent: string;
+}
+
 class CreateService {
   collection: string;
   constructor(collecton: string) {
@@ -55,6 +62,30 @@ class CreateService {
         title,
         category,
         address,
+      },
+    });
+
+    return btnMainMenu;
+  }
+
+  async executeBtnMenu({
+    title,
+    category,
+    address,
+    parent,
+  }: CreateBtnMenuProps) {
+    console.log('Rota foi chamada');
+
+    if (!title || !category || !address || !parent) {
+      throw new Error('Preencha todos os campos');
+    }
+
+    const btnMainMenu = await prismaClient.btnMenu.create({
+      data: {
+        title,
+        category,
+        address,
+        parent,
       },
     });
 
