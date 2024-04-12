@@ -20,6 +20,14 @@ interface CreateBtnMenuProps {
   parent: string;
 }
 
+interface CreateProductProps {
+  title: string;
+  comment: string;
+  value: number;
+  image: string;
+  parent: string;
+}
+
 class CreateService {
   collection: string;
   constructor(collecton: string) {
@@ -85,6 +93,33 @@ class CreateService {
         title,
         category,
         address,
+        parent,
+      },
+    });
+
+    return btnMainMenu;
+  }
+
+  async executeProduct({
+    title,
+    comment,
+    value,
+    image,
+    parent,
+  }: CreateProductProps) {
+    console.log('                DADOS ENVIADOS               ');
+    console.log(title, comment, value, image, parent);
+
+    if (!title || !comment || !value || !image || !parent) {
+      throw new Error('Preencha todos os campos');
+    }
+
+    const btnMainMenu = await prismaClient.product.create({
+      data: {
+        title,
+        comment,
+        value,
+        image,
         parent,
       },
     });

@@ -10,9 +10,9 @@ class OneController {
   async handle(request: FastifyRequest, replay: FastifyReply) {
     const { id } = request.query as { id: string };
 
-    const oneUserController = new OneService(this.collection);
+    const oneController = new OneService(this.collection);
 
-    const user = await oneUserController.execute({ id });
+    const user = await oneController.execute({ id });
     replay.send(user);
   }
 }

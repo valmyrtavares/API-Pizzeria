@@ -11,6 +11,7 @@ class OneService {
     this.collection = collection;
   }
   async execute({ id }: pickOneUserProps) {
+    console.log(id);
     if (!id) {
       throw new Error('Solicitação inválida');
     }

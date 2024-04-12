@@ -108,4 +108,34 @@ export async function routes(
       return new OneController('btnMenu').handle(request, reply);
     }
   );
+
+  //**********************Produtc routes ********************************* */
+
+  fastify.post(
+    '/product',
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      return new CreateController('product').handleProduct(request, reply);
+    }
+  );
+
+  fastify.get(
+    '/products',
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      return new ListController('product').handle(request, reply);
+    }
+  );
+
+  fastify.delete(
+    '/product',
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      return new DeleteController('product').handle(request, reply);
+    }
+  );
+
+  fastify.get(
+    '/product',
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      return new OneController('product').handle(request, reply);
+    }
+  );
 }

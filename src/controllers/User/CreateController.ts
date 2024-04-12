@@ -58,5 +58,27 @@ class CreateController {
 
     reply.send(btnMainMenu);
   }
+
+  async handleProduct(request: FastifyRequest, reply: FastifyReply) {
+    const { title, comment, value, image, parent } = request.body as {
+      title: string;
+      comment: string;
+      value: number;
+      image: string;
+      parent: string;
+    };
+
+    const productService = new CreateService(this.collection);
+
+    const product = await productService.executeProduct({
+      title,
+      comment,
+      value,
+      image,
+      parent,
+    });
+
+    reply.send(product);
+  }
 }
 export { CreateController };
