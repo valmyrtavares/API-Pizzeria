@@ -5,10 +5,12 @@ import {
   FastifyReply,
 } from 'fastify';
 
-import { CreateUserController } from './controllers/User/CreateUserController';
-import { ListCustomersController } from './controllers/User/listUserController';
+import { CreateController } from './controllers/User/CreateController';
+import { ListController } from './controllers/User/listUserController';
 import { DeleteUserController } from './controllers/User/DeleteUserController';
 import { OneUserController } from './controllers/User/oneUserController';
+//import { CreateMainMenuController } from './controllers/btnMainMenu/CreateMainMenuController';
+import { ListBtnMainMenuController } from './controllers/btnMainMenu/listBtnMainMenuController';
 
 export async function routes(
   fastify: FastifyInstance,
@@ -21,14 +23,15 @@ export async function routes(
   fastify.post(
     '/user',
     async (request: FastifyRequest, reply: FastifyReply) => {
-      return new CreateUserController().handle(request, reply);
+      return new CreateController('user').handleUser(request, reply);
     }
   );
 
+  // ./routes
   fastify.get(
     '/users',
     async (request: FastifyRequest, reply: FastifyReply) => {
-      return new ListCustomersController().handle(request, reply);
+      return new ListController('user').handle(request, reply);
     }
   );
 
@@ -42,4 +45,28 @@ export async function routes(
   fastify.get('/user', async (request: FastifyRequest, reply: FastifyReply) => {
     return new OneUserController().handle(request, reply);
   });
+
+  fastify.post(
+    '/btnMainMenu',
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      return new CreateController('btnMainMenu').handleBtnMainMenu(
+        request,
+        reply
+      );
+    }
+  );
+
+  fastify.get(
+    '/btnMainMenus',
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      return new ListController('btnMainMenu').handle(request, reply);
+    }
+  );
+
+  fastify.delete(
+    '/btnMainMenu',
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      return new DeleteUserController().handle(request, reply);
+    }
+  );
 }

@@ -21,3 +21,12 @@ model User {
 
   @@map("user")
 }
+
+model btnMainMenu {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  title    String
+  category String
+  address  String
+
+  @@map("btnMainMenu")
+}
