@@ -80,5 +80,43 @@ class CreateController {
 
     reply.send(product);
   }
+
+  async handleRequestItem(request: FastifyRequest, reply: FastifyReply) {
+    const { size, price, title } = request.body as {
+      size: number;
+      price: number;
+      title: string;
+    };
+
+    const productService = new CreateService(this.collection);
+
+    const product = await productService.executeRequestItem({
+      size,
+      price,
+      title,
+    });
+
+    reply.send(product);
+  }
+
+  async Request(request: FastifyRequest, reply: FastifyReply) {
+    const { idCustomer, size, price, title } = request.body as {
+      idCustomer: string;
+      size: number;
+      price: number;
+      title: string;
+    };
+
+    const productService = new CreateService(this.collection);
+
+    const product = await productService.executeRequest({
+      idCustomer,
+      size,
+      price,
+      title,
+    });
+
+    reply.send(product);
+  }
 }
 export { CreateController };

@@ -138,4 +138,67 @@ export async function routes(
       return new OneController('product').handle(request, reply);
     }
   );
+
+  //**********************request Item routes ********************************* */
+
+  fastify.post(
+    '/requestItem',
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      return new CreateController('requestItem').handleRequestItem(
+        request,
+        reply
+      );
+    }
+  );
+
+  fastify.get(
+    '/requestItems',
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      return new ListController('requestItem').handle(request, reply);
+    }
+  );
+
+  fastify.delete(
+    '/requestItem',
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      return new DeleteController('requestItem').handle(request, reply);
+    }
+  );
+
+  fastify.get(
+    '/requestItem',
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      return new OneController('requestItem').handle(request, reply);
+    }
+  );
+
+  //**********************request request ********************************* */
+
+  fastify.post(
+    '/request',
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      return new CreateController('request').Request(request, reply);
+    }
+  );
+
+  fastify.get(
+    '/requests',
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      return new ListController('request').handle(request, reply);
+    }
+  );
+
+  fastify.delete(
+    '/request',
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      return new DeleteController('request').handle(request, reply);
+    }
+  );
+
+  fastify.get(
+    '/request',
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      return new OneController('request').handle(request, reply);
+    }
+  );
 }

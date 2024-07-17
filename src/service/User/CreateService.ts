@@ -28,6 +28,19 @@ interface CreateProductProps {
   parent: string;
 }
 
+interface CreateRequestItem {
+  size: number;
+  price: number;
+  title: string;
+}
+
+interface CreateRequest {
+  idCustomer: string;
+  size: number;
+  price: number;
+  title: string;
+}
+
 class CreateService {
   collection: string;
   constructor(collecton: string) {
@@ -107,7 +120,6 @@ class CreateService {
     image,
     parent,
   }: CreateProductProps) {
-    console.log('                DADOS ENVIADOS               ');
     console.log(title, comment, value, image, parent);
 
     if (!title || !comment || !value || !image || !parent) {
@@ -121,6 +133,41 @@ class CreateService {
         value,
         image,
         parent,
+      },
+    });
+
+    return btnMainMenu;
+  }
+
+  async executeRequestItem({ size, price, title }: CreateRequestItem) {
+    console.log(size, price, title);
+
+    if (!size || !price || !title) {
+      throw new Error('Preencha todos os campos');
+    }
+
+    const btnMainMenu = await prismaClient.requestItem.create({
+      data: {
+        size,
+        price,
+        title,
+      },
+    });
+
+    return btnMainMenu;
+  }
+
+  async executeRequest({ idCustomer, size, price, title }: CreateRequest) {
+    if (!idCustomer || !size || !price || !title) {
+      throw new Error('Preencha todos os campos');
+    }
+
+    const btnMainMenu = await prismaClient.request.create({
+      data: {
+        idCustomer,
+        size,
+        price,
+        title,
       },
     });
 
